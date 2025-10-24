@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TODO</h1>
+        </header>
+        
+        <main>
+            <form class="add-task-form" id="addTaskForm">
+                <input 
+                    type="text" 
+                    id="taskInput" 
+                    placeholder="Add a new task..." 
+                    class="task-input"
+                    autocomplete="off"
+                >
+                <button type="submit" class="add-btn">+</button>
+            </form>
+            
+            <div class="tasks-container">
+                <ul class="tasks-list" id="tasksList"></ul>
+            </div>
+            
+            <div class="stats" id="stats">
+                <span class="tasks-count">0 tasks</span>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
