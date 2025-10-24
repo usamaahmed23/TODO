@@ -61,58 +61,70 @@ class AudioPlayer {
   }
 
   bindEvents() {
-    const audioFile = document.getElementById('audioFile');
-    const fileButton = document.getElementById('fileButton');
-    const audioElement = document.getElementById('audioElement');
+    // Use setTimeout to ensure DOM is ready
+    setTimeout(() => {
+      const audioFile = document.getElementById('audioFile');
+      const fileButton = document.getElementById('fileButton');
+      const audioElement = document.getElementById('audioElement');
+      const quantumDemo = document.getElementById('quantumDemo');
+      const dogDemo = document.getElementById('dogDemo');
 
-    // File input change
-    audioFile.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        this.handleFile(file);
+      // Check if elements exist before binding
+      if (audioFile) {
+        audioFile.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            this.handleFile(file);
+          }
+        });
       }
-    });
 
-    // Drag and drop events
-    fileButton.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      fileButton.classList.add('drag-over');
-    });
+      if (fileButton) {
+        // Drag and drop events
+        fileButton.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          fileButton.classList.add('drag-over');
+        });
 
-    fileButton.addEventListener('dragleave', () => {
-      fileButton.classList.remove('drag-over');
-    });
+        fileButton.addEventListener('dragleave', () => {
+          fileButton.classList.remove('drag-over');
+        });
 
-    fileButton.addEventListener('drop', (e) => {
-      e.preventDefault();
-      fileButton.classList.remove('drag-over');
-      
-      const files = e.dataTransfer.files;
-      if (files.length > 0) {
-        this.handleFile(files[0]);
+        fileButton.addEventListener('drop', (e) => {
+          e.preventDefault();
+          fileButton.classList.remove('drag-over');
+          
+          const files = e.dataTransfer.files;
+          if (files.length > 0) {
+            this.handleFile(files[0]);
+          }
+        });
       }
-    });
 
-    // Demo button events
-    const quantumDemo = document.getElementById('quantumDemo');
-    const dogDemo = document.getElementById('dogDemo');
+      // Demo button events
+      if (quantumDemo) {
+        quantumDemo.addEventListener('click', () => {
+          this.loadDemo('quantum');
+        });
+      }
 
-    quantumDemo.addEventListener('click', () => {
-      this.loadDemo('quantum');
-    });
+      if (dogDemo) {
+        dogDemo.addEventListener('click', () => {
+          this.loadDemo('dog');
+        });
+      }
 
-    dogDemo.addEventListener('click', () => {
-      this.loadDemo('dog');
-    });
+      // Audio events
+      if (audioElement) {
+        audioElement.addEventListener('loadedmetadata', () => {
+          this.updateDuration();
+        });
 
-    // Audio events
-    audioElement.addEventListener('loadedmetadata', () => {
-      this.updateDuration();
-    });
-
-    audioElement.addEventListener('error', () => {
-      this.showError('Error loading audio file. Please check the file format.');
-    });
+        audioElement.addEventListener('error', () => {
+          this.showError('Error loading audio file. Please check the file format.');
+        });
+      }
+    }, 0);
   }
 
   handleFile(file) {
@@ -123,7 +135,6 @@ class AudioPlayer {
 
     this.loadAudioFile(file);
     this.hideMessages();
-    this.showSuccess(`Loaded: ${file.name}`);
   }
 
   loadAudioFile(file) {
@@ -216,28 +227,19 @@ class AudioPlayer {
 
   showError(message) {
     const errorMessage = document.getElementById('errorMessage');
-    const successMessage = document.getElementById('successMessage');
     
-    errorMessage.textContent = message;
-    errorMessage.style.display = 'block';
-    successMessage.style.display = 'none';
-  }
-
-  showSuccess(message) {
-    const errorMessage = document.getElementById('errorMessage');
-    const successMessage = document.getElementById('successMessage');
-    
-    successMessage.textContent = message;
-    successMessage.style.display = 'block';
-    errorMessage.style.display = 'none';
+    if (errorMessage) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+    }
   }
 
   hideMessages() {
     const errorMessage = document.getElementById('errorMessage');
-    const successMessage = document.getElementById('successMessage');
     
-    errorMessage.style.display = 'none';
-    successMessage.style.display = 'none';
+    if (errorMessage) {
+      errorMessage.style.display = 'none';
+    }
   }
 }
 
