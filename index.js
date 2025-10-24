@@ -53,8 +53,8 @@ class AudioPlayer {
         </div>
 
         <div class="demo-section">
-          <button class="demo-button" onclick="audioPlayer.loadDemo('quantum')">🔬 Load Quantum Demo</button>
-          <button class="demo-button" onclick="audioPlayer.loadDemo('dog')">🐕 Load Dog Demo</button>
+          <button class="demo-button" id="quantumDemo">🔬 Load Quantum Demo</button>
+          <button class="demo-button" id="dogDemo">🐕 Load Dog Demo</button>
         </div>
       </div>
     `;
@@ -91,6 +91,18 @@ class AudioPlayer {
       if (files.length > 0) {
         this.handleFile(files[0]);
       }
+    });
+
+    // Demo button events
+    const quantumDemo = document.getElementById('quantumDemo');
+    const dogDemo = document.getElementById('dogDemo');
+
+    quantumDemo.addEventListener('click', () => {
+      this.loadDemo('quantum');
+    });
+
+    dogDemo.addEventListener('click', () => {
+      this.loadDemo('dog');
     });
 
     // Audio events
