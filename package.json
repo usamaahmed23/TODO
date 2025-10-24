@@ -1,0 +1,16 @@
+{
+  "name": "openai-audio-player",
+  "version": "1.0.0",
+  "description": "Audio player for OpenAI generated audio files with transcript display",
+  "main": "index.html",
+  "scripts": {
+    "start": "open index.html",
+    "dev": "python -m http.server 8080"
+  },
+  "keywords": ["openai", "audio", "player", "ai", "transcript"],
+  "author": "OpenAI Course",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
